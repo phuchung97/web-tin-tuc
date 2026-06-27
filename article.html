@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Đang tải bản tin… — Trang Cập Nhật Tin Tức Mỗi Ngày</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --navy:      #0f2a43;
+      --navy-soft: #1b3a57;
+      --accent:    #2f6f9f;
+      --accent-2:  #4a90c2;
+      --ink:       #1f2933;
+      --muted:     #6b7785;
+      --line:      #e3e8ee;
+      --bg:        #f4f6f9;
+      --card:      #ffffff;
+      --shadow:    0 6px 24px rgba(15, 42, 67, 0.08);
+      --radius:    16px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 600px at 50% -200px, #e8eef5 0%, transparent 60%),
+        var(--bg);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Thanh đầu trang ---- */
+    .topbar {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 70%, var(--accent) 150%);
+      color: #fff;
+      padding: 16px 0;
+    }
+    .topbar .wrap {
+      max-width: 860px; margin: 0 auto; padding: 0 20px;
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      color: #fff; text-decoration: none; font-weight: 500; font-size: 15px;
+      background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18);
+      padding: 8px 16px; border-radius: 999px; transition: background .15s;
+    }
+    .back-link:hover { background: rgba(255,255,255,.22); }
+    .topbar .brand { font-size: 14px; color: rgba(255,255,255,.82); font-weight: 500; }
+
+    /* ---- Khu vực bài viết ---- */
+    main { max-width: 860px; margin: 28px auto 60px; padding: 0 20px; }
+    .article-date {
+      display: inline-block; font-size: 13px; font-weight: 600; color: var(--accent);
+      background: #eaf2f8; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px;
+    }
+    .article-shell {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px clamp(20px, 4vw, 48px);
+      overflow-wrap: break-word;
+    }
+
+    /* ---- Style nội dung (đồng bộ với index.html) ---- */
+    .article-shell h2 {
+      font-size: clamp(21px, 3vw, 28px); color: var(--navy);
+      font-weight: 700; line-height: 1.3; margin: 26px 0 10px;
+    }
+    .article-shell h2:first-child { margin-top: 0; }
+    .article-shell h3 { font-size: 18px; color: var(--navy-soft); margin: 22px 0 8px; }
+    .article-shell p { margin: 10px 0; color: var(--ink); }
+    .article-shell a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; word-break: break-all; }
+    .article-shell a:hover { border-bottom-color: var(--accent); }
+    .article-shell ul, .article-shell ol { margin: 10px 0 10px 22px; }
+    .article-shell img { max-width: 100%; height: auto; border-radius: 12px; margin: 14px 0; }
+    .article-shell svg { max-width: 100%; height: auto; display: block; margin: 16px 0; }
+
+    .article-shell table {
+      width: 100%; border-collapse: collapse; margin: 16px 0;
+      display: block; overflow-x: auto;     /* bảng dài cuộn ngang thay vì tràn viền */
+    }
+    .article-shell th, .article-shell td {
+      border: 1px solid var(--line); padding: 10px 12px; text-align: left;
+      white-space: nowrap;
+    }
+    .article-shell th { background: #f1f5f9; font-weight: 600; }
+
+    .news-meta {
+      display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+      margin: 4px 0 18px; padding-bottom: 18px; border-bottom: 1px dashed var(--line);
+    }
+    .news-tag {
+      font-size: 12px; font-weight: 600; color: #fff; background: var(--accent);
+      padding: 4px 12px; border-radius: 999px;
+    }
+    .news-time { font-size: 13px; color: var(--muted); }
+
+    .state { text-align: center; padding: 48px 20px; color: var(--muted); }
+    .spinner {
+      width: 34px; height: 34px; margin: 0 auto 14px;
+      border: 3px solid var(--line); border-top-color: var(--accent);
+      border-radius: 50%; animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    footer {
+      text-align: center; color: var(--muted); font-size: 13px; padding: 24px 20px 40px;
+    }
+
+    @media (max-width: 600px) {
+      .article-shell { padding: 22px 16px; }
+      .topbar .brand { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="back-link" href="index.html">← Về trang chủ</a>
+      <span class="brand">Trang Cập Nhật Tin Tức Mỗi Ngày</span>
+    </div>
+  </header>
+
+  <main>
+    <div id="article-date-box"></div>
+    <article class="article-shell" id="article">
+      <div class="state"><div class="spinner"></div>Đang tải bản tin…</div>
+    </article>
+  </main>
+
+  <footer>© <span id="year"></span> — Vận hành tự động bởi Phuc Hung Agent</footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    /** Lấy tham số ?date=YYYY-MM-DD */
+    function getDateParam() {
+      const v = new URLSearchParams(location.search).get("date") || "";
+      return /^\d{4}-\d{2}-\d{2}$/.test(v) ? v : null;
+    }
+    function toDisplayDate(iso) {
+      const [y, m, d] = iso.split("-");
+      return `${d}/${m}/${y}`;
+    }
+
+    async function loadArticle() {
+      const article = document.getElementById("article");
+      const dateBox = document.getElementById("article-date-box");
+      const iso = getDateParam();
+
+      if (!iso) {
+        article.innerHTML = `<div class="state">⚠️ Thiếu hoặc sai tham số ngày. <a href="index.html">Về trang chủ</a></div>`;
+        return;
+      }
+
+      dateBox.innerHTML = `<span class="article-date">📅 Bản tin ngày ${toDisplayDate(iso)}</span>`;
+
+      try {
+        const res = await fetch(`archive/${iso}.html`, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const html = await res.text();
+        article.innerHTML = html;
+        document.title = `Bản tin ${toDisplayDate(iso)} — Trang Cập Nhật Tin Tức Mỗi Ngày`;
+      } catch (err) {
+        article.innerHTML = `<div class="state">⚠️ Không tải được bản tin ngày <strong>${toDisplayDate(iso)}</strong>.<br><a href="index.html">Về trang chủ</a></div>`;
+        console.error("Lỗi tải bài:", err);
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", loadArticle);
+  </script>
+</body>
+</html>
