@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Hệ thống tự động tổng hợp tin tức mỗi ngày, vận hành bởi Phuc Hung Agent." />
+  <meta name="description" content="Thông tin và dữ liệu thị trường bất động sản, kinh tế Nhật Bản — cập nhật mỗi ngày." />
   <title>Trang Cập Nhật Tin Tức Mỗi Ngày</title>
 
   <!-- Google Fonts: Be Vietnam Pro (tiếng Việt rất đẹp & dễ đọc) -->
@@ -197,6 +197,19 @@
     .archive-info .sub   { font-size: 13px; color: var(--muted); margin-top: 2px; }
     .archive-arrow { color: var(--accent); font-size: 20px; flex-shrink: 0; }
 
+    /* ---- Nút "Xem thêm" ---- */
+    .show-more-wrap { text-align: center; margin-top: 16px; }
+    .show-more-btn {
+      font-family: inherit; font-size: 15px; font-weight: 600; color: var(--accent);
+      background: var(--card); border: 1px solid var(--line); border-radius: 999px;
+      padding: 11px 28px; cursor: pointer; box-shadow: var(--shadow);
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+    }
+    .show-more-btn:hover {
+      background: var(--accent); color: #fff; border-color: var(--accent);
+      transform: translateY(-2px); box-shadow: var(--shadow-lift);
+    }
+
     /* ---- Trạng thái tải / lỗi ---- */
     .state {
       text-align: center; padding: 40px 20px; color: var(--muted);
@@ -240,11 +253,11 @@
   <!-- ====================== HEADER ====================== -->
   <header>
     <div class="wrap">
-      <span class="brand-tag"><span class="dot"></span> Hệ thống tự động cập nhật mỗi ngày</span>
+      <span class="brand-tag"><span class="dot"></span> Cập nhật mỗi ngày</span>
       <h1>Trang Cập Nhật Tin Tức Mỗi Ngày</h1>
       <p>
-        Tin tức được tổng hợp, chắt lọc và biên tập tự động bằng AI mỗi ngày —
-        mang đến cho bạn bức tranh thời sự nhanh, gọn và đáng tin cậy.
+        Thông tin và dữ liệu thị trường bất động sản, kinh tế Nhật Bản —
+        chọn lọc, biên tập kỹ lưỡng, cập nhật mỗi ngày, ngắn gọn và đáng tin cậy.
       </p>
     </div>
   </header>
@@ -284,15 +297,16 @@
           </tr>
         </tbody>
       </table>
+      <div id="archive-more" class="show-more-wrap"></div>
     </section>
   </main>
 
   <!-- ====================== FOOTER ====================== -->
   <footer>
     <div class="wrap">
-      <div>© <span id="year"></span> — Bản quyền thuộc <strong>Phuc Hung Agent</strong>.</div>
+      <div>© <span id="year"></span> — Bản quyền thuộc <strong>Phúc Hưng</strong>.</div>
       <div class="sys">
-        Hệ thống vận hành tự động bởi <strong>Phuc Hung Agent</strong> · Tổng hợp &amp; biên tập bằng AI · Cập nhật hằng ngày
+        Chuyên trang thông tin thị trường bất động sản &amp; kinh tế Nhật Bản · Cập nhật hằng ngày
       </div>
     </div>
   </footer>
@@ -353,25 +367,22 @@
         ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     }
 
-    /** Render danh sách các ngày cũ thành các thẻ link */
-    function renderArchive(items) {
-      const tbody = document.getElementById("archive-body");
+    // Trạng thái phân trang danh sách lưu trữ
+    let archiveItems = [];
+    let archiveShown = 0;
+    const ARCHIVE_BATCH = 7;
 
-      if (!items.length) {
-        showStateRow(tbody, "Chưa có bản tin nào trong kho lưu trữ.");
-        return;
-      }
-
-      tbody.innerHTML = items.map((item) => {
-        const iso = item.date;
-        const dt = parseISO(iso);
-        const day = String(dt.getDate()).padStart(2, "0");
-        const month = MONTHS_VI[dt.getMonth()];
-        const weekday = WEEKDAYS_VI[dt.getDay()];
-        const title = item.title
-          ? escapeHtml(item.title)
-          : `Bản tin ngày ${toDisplayDate(iso)}`;
-        return `
+    /** Tạo HTML cho 1 thẻ bản tin cũ */
+    function archiveCardHTML(item) {
+      const iso = item.date;
+      const dt = parseISO(iso);
+      const day = String(dt.getDate()).padStart(2, "0");
+      const month = MONTHS_VI[dt.getMonth()];
+      const weekday = WEEKDAYS_VI[dt.getDay()];
+      const title = item.title
+        ? escapeHtml(item.title)
+        : `Bản tin ngày ${toDisplayDate(iso)}`;
+      return `
           <tr>
             <td>
               <a class="archive-card" href="article.html?date=${iso}" target="_blank" rel="noopener">
@@ -387,7 +398,36 @@
               </a>
             </td>
           </tr>`;
-      }).join("");
+    }
+
+    /** Hiện thêm 1 đợt bài (mỗi lần ARCHIVE_BATCH bài) + cập nhật nút */
+    function showMoreArchive() {
+      const tbody = document.getElementById("archive-body");
+      const moreBox = document.getElementById("archive-more");
+      const next = archiveItems.slice(archiveShown, archiveShown + ARCHIVE_BATCH);
+      tbody.insertAdjacentHTML("beforeend", next.map(archiveCardHTML).join(""));
+      archiveShown += next.length;
+
+      const remaining = archiveItems.length - archiveShown;
+      moreBox.innerHTML = remaining > 0
+        ? `<button type="button" class="show-more-btn" onclick="showMoreArchive()">Xem thêm ${remaining} bài →</button>`
+        : "";
+    }
+
+    /** Render danh sách bài cũ — hiện ARCHIVE_BATCH bài đầu, còn lại ẩn sau nút "Xem thêm" */
+    function renderArchive(items) {
+      const tbody = document.getElementById("archive-body");
+      const moreBox = document.getElementById("archive-more");
+      archiveItems = items;
+      archiveShown = 0;
+      tbody.innerHTML = "";
+      if (moreBox) moreBox.innerHTML = "";
+
+      if (!items.length) {
+        showStateRow(tbody, "Chưa có bản tin nào trong kho lưu trữ.");
+        return;
+      }
+      showMoreArchive();
     }
 
     function showStateRow(tbody, message) {
