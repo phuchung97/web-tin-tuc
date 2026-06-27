@@ -2,6 +2,9 @@
 serve.ps1
 .claude/
 
+# Tài liệu nội bộ — KHÔNG đẩy lên GitHub (mô tả quy trình vận hành)
+_private/
+
 # File hệ thống
 Thumbs.db
 desktop.ini
