@@ -1,0 +1,8 @@
+# Công cụ chạy local (không cần đẩy lên GitHub Pages)
+serve.ps1
+.claude/
+
+# File hệ thống
+Thumbs.db
+desktop.ini
+.DS_Store
