@@ -1,8 +1,12 @@
 {
   "site": "Trang Cập Nhật Tin Tức Mỗi Ngày",
   "operator": "Phuc Hung Agent",
-  "last_updated": "2026-06-27",
+  "last_updated": "2026-06-28",
   "news_list": [
+    {
+      "date": "2026-06-28",
+      "title": "Thị trường reform nhà ở Nhật 2024 đạt 7.347 tỷ yên, dự báo 2025 đi ngang nhẹ"
+    },
     {
       "date": "2026-06-27",
       "title": "Giá thuê nhà theo ga trên tuyến JR Yamanote (Tokyo): Yurakucho đắt nhất, Tabata rẻ nhất"
