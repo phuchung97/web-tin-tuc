@@ -341,20 +341,36 @@
       }
     }
 
+    /** Chuẩn hóa 1 phần tử news_list: hỗ trợ cả "YYYY-MM-DD" lẫn {date, title} */
+    function normalizeEntry(entry) {
+      if (typeof entry === "string") return { date: entry, title: "" };
+      return { date: entry.date, title: entry.title || "" };
+    }
+
+    /** Escape ký tự HTML để hiển thị tiêu đề an toàn */
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"]/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    }
+
     /** Render danh sách các ngày cũ thành các thẻ link */
-    function renderArchive(isoList) {
+    function renderArchive(items) {
       const tbody = document.getElementById("archive-body");
 
-      if (!isoList.length) {
+      if (!items.length) {
         showStateRow(tbody, "Chưa có bản tin nào trong kho lưu trữ.");
         return;
       }
 
-      tbody.innerHTML = isoList.map((iso) => {
+      tbody.innerHTML = items.map((item) => {
+        const iso = item.date;
         const dt = parseISO(iso);
         const day = String(dt.getDate()).padStart(2, "0");
         const month = MONTHS_VI[dt.getMonth()];
         const weekday = WEEKDAYS_VI[dt.getDay()];
+        const title = item.title
+          ? escapeHtml(item.title)
+          : `Bản tin ngày ${toDisplayDate(iso)}`;
         return `
           <tr>
             <td>
@@ -364,8 +380,8 @@
                   <span class="month">${month}</span>
                 </div>
                 <div class="archive-info">
-                  <div class="title">Bản tin ngày ${toDisplayDate(iso)}</div>
-                  <div class="sub">${weekday} · Tổng hợp tin tức trong ngày</div>
+                  <div class="title">${title}</div>
+                  <div class="sub">${toDisplayDate(iso)} · ${weekday}</div>
                 </div>
                 <span class="archive-arrow">→</span>
               </a>
@@ -394,8 +410,9 @@
         return;
       }
 
-      // Mảng news_list đã được sắp xếp mới -> cũ
-      const list = Array.isArray(data.news_list) ? data.news_list : [];
+      // Mảng news_list đã được sắp xếp mới -> cũ (mỗi phần tử: chuỗi ngày hoặc {date, title})
+      const rawList = Array.isArray(data.news_list) ? data.news_list : [];
+      const list = rawList.map(normalizeEntry);
 
       if (!list.length) {
         showState(document.getElementById("today-news"),
@@ -410,7 +427,7 @@
       // Các ngày còn lại -> danh sách lưu trữ
       const older = list.slice(1);
 
-      loadTodayNews(latest);
+      loadTodayNews(latest.date);
       renderArchive(older);
     }
 

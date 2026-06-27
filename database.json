@@ -3,7 +3,13 @@
   "operator": "Phuc Hung Agent",
   "last_updated": "2026-06-27",
   "news_list": [
-    "2026-06-27",
-    "2026-06-26"
+    {
+      "date": "2026-06-27",
+      "title": "Giá thuê nhà theo ga trên tuyến JR Yamanote (Tokyo): Yurakucho đắt nhất, Tabata rẻ nhất"
+    },
+    {
+      "date": "2026-06-26",
+      "title": "Thị trường văn phòng cho thuê Nhật (T5/2026): Tokyo tỷ lệ trống còn 2.07%, giá thuê tăng gần 10%"
+    }
   ]
 }
