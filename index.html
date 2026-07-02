@@ -141,8 +141,9 @@
     #today-news a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
     #today-news a:hover { border-bottom-color: var(--accent); }
     #today-news ul, #today-news ol { margin: 10px 0 10px 22px; }
-    #today-news img { max-width: 100%; border-radius: 12px; margin: 14px 0; }
-    #today-news table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+    #today-news img { max-width: 100%; height: auto; border-radius: 12px; margin: 14px 0; }
+    #today-news svg { max-width: 100%; height: auto; display: block; margin: 16px 0; }
+    #today-news table { width: 100%; border-collapse: collapse; margin: 16px 0; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     #today-news th, #today-news td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
     #today-news th { background: #f1f5f9; font-weight: 600; }
 
@@ -236,15 +237,59 @@
       margin-top: 8px; font-size: 12.5px; color: rgba(255,255,255,.5);
     }
 
+    /* ---- Nút "Lên đầu trang" ---- */
+    #to-top {
+      position: fixed; right: 18px; bottom: 18px; z-index: 50;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none;
+      font-size: 22px; line-height: 1; cursor: pointer;
+      box-shadow: var(--shadow-lift);
+      opacity: 0; visibility: hidden; transform: translateY(10px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    }
+    #to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    #to-top:hover { background: var(--navy); }
+
     /* ============================================================
        RESPONSIVE (Điện thoại)
        ============================================================ */
     @media (max-width: 600px) {
       header { padding: 40px 0 46px; }
-      #today-news { padding: 24px 18px; }
+      #today-news { padding: 24px 16px; }
+      #today-news th, #today-news td { padding: 8px 10px; font-size: 14px; }
+      #today-news h3 { font-size: 16px; }
+      .section-head h2 { font-size: 20px; }
       .archive-card { gap: 14px; padding: 14px; }
       .archive-date-box { width: 52px; height: 52px; }
       .archive-date-box .day { font-size: 19px; }
+      .archive-info .title { font-size: 15px; }
+      .archive-arrow { display: none; }
+      #to-top { right: 14px; bottom: 14px; }
+    }
+
+    /* ============================================================
+       DARK MODE (tự động theo cài đặt điện thoại/hệ thống)
+       ============================================================ */
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink:   #e6edf3;
+        --muted: #9aa7b4;
+        --line:  #2a3746;
+        --bg:    #0d1520;
+        --card:  #16212e;
+        --shadow:      0 6px 24px rgba(0,0,0,0.45);
+        --shadow-lift: 0 14px 36px rgba(0,0,0,0.6);
+      }
+      body {
+        background:
+          radial-gradient(1200px 600px at 50% -200px, #14202e 0%, transparent 60%),
+          var(--bg);
+      }
+      .section-head h2, #today-news h2, #today-news h3, .archive-info .title { color: #cfe0ee; }
+      .section-head .badge { background: #1e3a52; color: #9cc4e4; }
+      #today-news th { background: #1e2b3a; }
+      .show-more-btn { color: #9cc4e4; }
+      #today-badge, .badge { color: #9cc4e4; }
     }
   </style>
 </head>
@@ -310,6 +355,8 @@
       </div>
     </div>
   </footer>
+
+  <button id="to-top" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button>
 
   <!-- ============================================================
        LOGIC JAVASCRIPT — "BỘ MÁY" RENDER ĐỘNG
@@ -472,6 +519,15 @@
     }
 
     document.addEventListener("DOMContentLoaded", init);
+
+    // Nút "Lên đầu trang" — hiện khi cuộn xuống
+    const toTop = document.getElementById("to-top");
+    if (toTop) {
+      toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      window.addEventListener("scroll", () => {
+        toTop.classList.toggle("show", window.scrollY > 400);
+      }, { passive: true });
+    }
   </script>
 </body>
 </html>

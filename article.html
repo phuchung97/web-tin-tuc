@@ -115,9 +115,42 @@
       text-align: center; color: var(--muted); font-size: 13px; padding: 24px 20px 40px;
     }
 
+    #to-top {
+      position: fixed; right: 18px; bottom: 18px; z-index: 50;
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: none;
+      font-size: 22px; line-height: 1; cursor: pointer;
+      box-shadow: var(--shadow);
+      opacity: 0; visibility: hidden; transform: translateY(10px);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s;
+    }
+    #to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
+    #to-top:hover { background: var(--navy); }
+
     @media (max-width: 600px) {
       .article-shell { padding: 22px 16px; }
       .topbar .brand { display: none; }
+      .article-shell th, .article-shell td { padding: 8px 10px; font-size: 14px; }
+      #to-top { right: 14px; bottom: 14px; }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink:   #e6edf3;
+        --muted: #9aa7b4;
+        --line:  #2a3746;
+        --bg:    #0d1520;
+        --card:  #16212e;
+        --shadow: 0 6px 24px rgba(0,0,0,0.5);
+      }
+      body {
+        background:
+          radial-gradient(1200px 600px at 50% -200px, #14202e 0%, transparent 60%),
+          var(--bg);
+      }
+      .article-shell h2, .article-shell h3 { color: #cfe0ee; }
+      .article-shell th { background: #1e2b3a; }
+      .article-date { background: #1e3a52; color: #9cc4e4; }
     }
   </style>
 </head>
@@ -139,8 +172,19 @@
 
   <footer>© <span id="year"></span> — <strong>Phúc Hưng</strong> · Thông tin thị trường bất động sản Nhật Bản</footer>
 
+  <button id="to-top" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button>
+
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
+
+    (function(){
+      const toTop = document.getElementById("to-top");
+      if (!toTop) return;
+      toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+      window.addEventListener("scroll", () => {
+        toTop.classList.toggle("show", window.scrollY > 400);
+      }, { passive: true });
+    })();
 
     /** Lấy tham số ?date=YYYY-MM-DD */
     function getDateParam() {
