@@ -1,8 +1,12 @@
 {
   "site": "Trang Cập Nhật Tin Tức Mỗi Ngày",
   "operator": "Phuc Hung Agent",
-  "last_updated": "2026-06-30",
+  "last_updated": "2026-07-01",
   "news_list": [
+    {
+      "date": "2026-07-01",
+      "title": "Giá đất công bố Nhật 2026: toàn dụng +2,8% (năm thứ 5 tăng liên tiếp), đất thương mại +4,3%; Tokyo dẫn đầu +5,7%"
+    },
     {
       "date": "2026-06-30",
       "title": "Chính phủ Nhật trợ giá điện – gas mùa đông 2026 (T1–T3), ngân sách bổ sung 528,6 tỷ yên"
