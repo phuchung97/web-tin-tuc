@@ -1,8 +1,12 @@
 {
   "site": "Trang Cập Nhật Tin Tức Mỗi Ngày",
   "operator": "Phuc Hung Agent",
-  "last_updated": "2026-07-01",
+  "last_updated": "2026-07-02",
   "news_list": [
+    {
+      "date": "2026-07-02",
+      "title": "Giá thuê theo ga tuyến JR Chuo (Tokyo): Kanda đắt nhất 10,9万円, giảm dần về phía Tây (Sagamiko 2,5万円)"
+    },
     {
       "date": "2026-07-01",
       "title": "Giá đất công bố Nhật 2026: toàn dụng +2,8% (năm thứ 5 tăng liên tiếp), đất thương mại +4,3%; Tokyo dẫn đầu +5,7%"
