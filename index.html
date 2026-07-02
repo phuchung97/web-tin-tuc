@@ -4,116 +4,169 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Thông tin và dữ liệu thị trường bất động sản, kinh tế Nhật Bản — cập nhật mỗi ngày." />
-  <title>Trang Cập Nhật Tin Tức Mỗi Ngày</title>
+  <title>Phúc Hưng — Tin Tức Bất Động Sản &amp; Kinh Tế Nhật Bản</title>
 
-  <!-- Google Fonts: Be Vietnam Pro (tiếng Việt rất đẹp & dễ đọc) -->
+  <!-- Fonts: Be Vietnam Pro (nội dung tiếng Việt) + Noto Serif JP (chữ Hán trang trí) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@600;800&display=swap" rel="stylesheet" />
 
   <style>
     /* ============================================================
-       BIẾN MÀU & THIẾT KẾ TỔNG THỂ (tone xanh thẫm - xám - trắng)
+       BẢNG MÀU — phong cách báo giấy Nhật (giấy kem / mực đen / đỏ son)
        ============================================================ */
     :root {
-      --navy:        #0f2a43;   /* xanh thẫm chủ đạo */
-      --navy-soft:   #1b3a57;
-      --accent:      #2f6f9f;   /* xanh dương nhấn   */
-      --accent-2:    #4a90c2;
-      --ink:         #1f2933;   /* màu chữ chính     */
-      --muted:       #6b7785;   /* chữ phụ           */
-      --line:        #e3e8ee;   /* viền nhạt         */
-      --bg:          #f4f6f9;   /* nền trang         */
-      --card:        #ffffff;
-      --shadow:      0 6px 24px rgba(15, 42, 67, 0.08);
-      --shadow-lift: 0 14px 36px rgba(15, 42, 67, 0.16);
-      --radius:      16px;
+      --bg:        #f5f1e8;   /* nền giấy kem       */
+      --card:      #fffdf7;   /* thẻ giấy trắng ngà */
+      --ink:       #211f1c;   /* mực đen ấm         */
+      --muted:     #6d675a;   /* chữ phụ nâu xám    */
+      --line:      #e0d9c8;   /* kẻ nhạt            */
+      --red:       #b7282e;   /* đỏ son (朱色)      */
+      --red-deep:  #8f1f24;
+      --blue:      #2f6f9f;   /* xanh thứ Bảy/link  */
+      --navy:      #1b3a57;
+      --shadow:      0 4px 18px rgba(60, 45, 20, 0.08);
+      --shadow-lift: 0 12px 30px rgba(60, 45, 20, 0.16);
+      --radius:    12px;
+    }
+    /* Chế độ tối (bật thủ công hoặc theo hệ thống) */
+    [data-theme="dark"] {
+      --bg:    #171512;
+      --card:  #201d18;
+      --ink:   #ece7db;
+      --muted: #a39c8b;
+      --line:  #3a352c;
+      --red:   #e05a5f;
+      --red-deep: #c94a50;
+      --blue:  #6aa5cf;
+      --shadow:      0 4px 18px rgba(0,0,0,0.45);
+      --shadow-lift: 0 12px 30px rgba(0,0,0,0.6);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg:    #171512;
+        --card:  #201d18;
+        --ink:   #ece7db;
+        --muted: #a39c8b;
+        --line:  #3a352c;
+        --red:   #e05a5f;
+        --red-deep: #c94a50;
+        --blue:  #6aa5cf;
+        --shadow:      0 4px 18px rgba(0,0,0,0.45);
+        --shadow-lift: 0 12px 30px rgba(0,0,0,0.6);
+      }
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: "Be Vietnam Pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
       color: var(--ink);
-      background:
-        radial-gradient(1200px 600px at 50% -200px, #e8eef5 0%, transparent 60%),
-        var(--bg);
+      background: var(--bg);
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
-
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 0 20px; }
 
     /* ============================================================
-       HEADER
+       DẢI TRÊN CÙNG — ngày tháng kiểu nhật báo + nút đổi giao diện
        ============================================================ */
-    header {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 60%, var(--accent) 140%);
+    .top-strip {
+      border-bottom: 1px solid var(--line);
+      background: var(--card);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .top-strip .wrap {
+      display: flex; align-items: center; justify-content: space-between;
+      padding-top: 8px; padding-bottom: 8px; gap: 10px;
+    }
+    .top-strip .jdate b { color: var(--ink); font-weight: 600; }
+    #theme-toggle {
+      font-family: inherit; font-size: 13px; font-weight: 600;
+      color: var(--ink); background: transparent;
+      border: 1px solid var(--line); border-radius: 999px;
+      padding: 5px 14px; cursor: pointer; white-space: nowrap;
+      transition: background .15s ease, border-color .15s ease;
+    }
+    #theme-toggle:hover { border-color: var(--red); color: var(--red); }
+
+    /* ============================================================
+       MASTHEAD — măng-sét báo: con dấu 福興 + tên trang
+       ============================================================ */
+    .masthead {
+      background: var(--card);
+      border-bottom: 3px double var(--ink);
+      padding: 26px 0 22px;
+    }
+    .masthead .wrap { display: flex; align-items: center; gap: 18px; }
+    .seal {
+      flex-shrink: 0;
+      width: 58px; height: 58px;
+      background: var(--red);
       color: #fff;
-      padding: 56px 0 64px;
-      position: relative;
-      overflow: hidden;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      writing-mode: vertical-rl;
+      font-family: "Noto Serif JP", serif;
+      font-size: 24px; font-weight: 800; letter-spacing: 2px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,.35), var(--shadow);
+      user-select: none;
     }
-    header::after {
-      content: "";
-      position: absolute; inset: 0;
-      background-image:
-        radial-gradient(circle at 85% 20%, rgba(255,255,255,.10) 0, transparent 35%),
-        radial-gradient(circle at 10% 90%, rgba(255,255,255,.06) 0, transparent 40%);
-      pointer-events: none;
+    .mast-text h1 {
+      font-size: clamp(26px, 4.5vw, 40px);
+      font-weight: 800; letter-spacing: 1px;
+      color: var(--ink); line-height: 1.1;
     }
-    .brand-tag {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(255,255,255,.12);
-      border: 1px solid rgba(255,255,255,.18);
-      padding: 6px 14px; border-radius: 999px;
-      font-size: 13px; font-weight: 500; letter-spacing: .3px;
-      margin-bottom: 18px;
+    .mast-text h1 .accent { color: var(--red); }
+    .mast-text .tagline {
+      margin-top: 6px; font-size: clamp(12.5px, 1.6vw, 14.5px);
+      color: var(--muted); font-weight: 500;
     }
-    .brand-tag .dot {
-      width: 8px; height: 8px; border-radius: 50%;
-      background: #5ee0a0; box-shadow: 0 0 0 4px rgba(94,224,160,.25);
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { opacity: 1; }
-      50%     { opacity: .4; }
-    }
-    header h1 {
-      font-size: clamp(28px, 5vw, 46px);
-      font-weight: 800;
-      line-height: 1.15;
-      letter-spacing: -0.5px;
-      max-width: 760px;
-    }
-    header p {
-      margin-top: 14px;
-      font-size: clamp(15px, 2vw, 18px);
-      color: rgba(255,255,255,.82);
-      max-width: 640px;
-      font-weight: 400;
+    .mast-text .tagline .jp {
+      font-family: "Noto Serif JP", serif; color: var(--red); font-weight: 600;
+      margin-right: 8px;
     }
 
     /* ============================================================
-       LAYOUT CHÍNH
+       BỐ CỤC 2 CỘT — nội dung chính + cột tiện ích
        ============================================================ */
-    main { padding: 44px 0 60px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 28px;
+      padding-top: 32px; padding-bottom: 56px;
+    }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: minmax(0, 1fr); }
+    }
 
-    .section-head {
-      display: flex; align-items: center; gap: 12px;
-      margin: 8px 0 22px;
+    /* ---- Tiêu đề mục kiểu báo: ô đỏ chữ Hán + kẻ đôi ---- */
+    .section-head { margin: 6px 0 18px; }
+    .section-head .row {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .kanji-chip {
+      flex-shrink: 0;
+      background: var(--red); color: #fff;
+      font-family: "Noto Serif JP", serif; font-weight: 600;
+      font-size: 13px; line-height: 1;
+      padding: 6px 8px; border-radius: 4px;
+      user-select: none;
     }
     .section-head h2 {
-      font-size: 22px; font-weight: 700; color: var(--navy);
-      letter-spacing: -0.2px;
-      white-space: nowrap;
+      font-size: 21px; font-weight: 800; color: var(--ink);
+      letter-spacing: -0.2px; white-space: nowrap;
     }
-    .section-head .line { flex: 1; height: 1px; background: var(--line); }
     .section-head .badge {
-      font-size: 12px; font-weight: 600; color: var(--accent);
-      background: #eaf2f8; padding: 4px 10px; border-radius: 999px;
+      font-size: 12px; font-weight: 700; color: var(--red);
+      background: transparent; border: 1px solid var(--red);
+      padding: 3px 10px; border-radius: 999px;
+    }
+    .section-head .rule {
+      margin-top: 10px; height: 4px;
+      border-top: 2px solid var(--ink);
+      border-bottom: 1px solid var(--ink);
     }
 
     /* ---- Vùng "Tin hôm nay" ---- */
@@ -122,278 +175,426 @@
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 32px clamp(20px, 4vw, 44px);
-      margin-bottom: 52px;
+      padding: 30px clamp(18px, 3.5vw, 40px);
+      margin-bottom: 46px;
     }
-
-    /* Định dạng nội dung được nạp từ file archive/*.html */
-    #today-news h2,
-    .today-content h2 {
-      font-size: clamp(20px, 3vw, 27px);
-      color: var(--navy);
-      font-weight: 700;
-      margin: 26px 0 10px;
-      line-height: 1.3;
+    #today-news h2 {
+      font-size: clamp(20px, 2.6vw, 26px);
+      color: var(--ink); font-weight: 800;
+      margin: 26px 0 10px; line-height: 1.35;
+      padding-left: 14px; border-left: 5px solid var(--red);
     }
     #today-news h2:first-child { margin-top: 0; }
-    #today-news h3 { font-size: 18px; color: var(--navy-soft); margin: 20px 0 8px; }
-    #today-news p { margin: 10px 0; color: var(--ink); }
-    #today-news a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
-    #today-news a:hover { border-bottom-color: var(--accent); }
+    #today-news h3 {
+      font-size: 17px; color: var(--ink); margin: 20px 0 8px; font-weight: 700;
+    }
+    #today-news h3::before { content: "■ "; color: var(--red); font-size: 12px; vertical-align: 2px; }
+    #today-news p { margin: 10px 0; }
+    #today-news a { color: var(--blue); text-decoration: none; border-bottom: 1px solid transparent; word-break: break-all; }
+    #today-news a:hover { border-bottom-color: var(--blue); }
     #today-news ul, #today-news ol { margin: 10px 0 10px 22px; }
-    #today-news img { max-width: 100%; height: auto; border-radius: 12px; margin: 14px 0; }
+    #today-news img { max-width: 100%; height: auto; border-radius: 10px; margin: 14px 0; }
     #today-news svg { max-width: 100%; height: auto; display: block; margin: 16px 0; }
     #today-news table { width: 100%; border-collapse: collapse; margin: 16px 0; display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     #today-news th, #today-news td { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
-    #today-news th { background: #f1f5f9; font-weight: 600; }
+    #today-news th { background: rgba(183, 40, 46, 0.07); font-weight: 700; }
 
-    /* Tag phân loại & meta của bài viết */
     .news-meta {
       display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
       margin: 4px 0 18px; padding-bottom: 18px;
       border-bottom: 1px dashed var(--line);
     }
     .news-tag {
-      font-size: 12px; font-weight: 600;
-      color: #fff; background: var(--accent);
-      padding: 4px 12px; border-radius: 999px;
+      font-size: 12px; font-weight: 700;
+      color: #fff; background: var(--red);
+      padding: 4px 12px; border-radius: 3px;
     }
     .news-time { font-size: 13px; color: var(--muted); }
 
-    /* ---- Vùng "Bài viết cũ" (Archive) ---- */
-    #archive-links {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0 12px;
-    }
+    /* ---- Danh sách bài cũ ---- */
+    #archive-links { width: 100%; border-collapse: separate; border-spacing: 0 12px; }
     #archive-links td { padding: 0; }
     .archive-card {
-      display: flex; align-items: center; gap: 18px;
+      display: flex; align-items: center; gap: 16px;
       background: var(--card);
       border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px 20px;
-      text-decoration: none;
-      color: inherit;
+      border-radius: 10px;
+      padding: 14px 18px;
+      text-decoration: none; color: inherit;
       box-shadow: var(--shadow);
       transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
     }
     .archive-card:hover {
       transform: translateY(-3px);
       box-shadow: var(--shadow-lift);
-      border-color: var(--accent-2);
+      border-color: var(--red);
     }
     .archive-date-box {
       flex-shrink: 0;
-      width: 60px; height: 60px;
-      background: linear-gradient(135deg, var(--navy), var(--accent));
-      color: #fff; border-radius: 12px;
+      width: 56px; height: 56px;
+      background: var(--card);
+      border: 2px solid var(--red);
+      color: var(--red); border-radius: 8px;
       display: flex; flex-direction: column; align-items: center; justify-content: center;
-      line-height: 1.1;
+      line-height: 1.05;
     }
-    .archive-date-box .day   { font-size: 22px; font-weight: 800; }
-    .archive-date-box .month { font-size: 11px; font-weight: 600; opacity: .85; letter-spacing: .5px; }
+    .archive-date-box .day   { font-size: 21px; font-weight: 800; }
+    .archive-date-box .month { font-size: 10.5px; font-weight: 700; letter-spacing: .5px; }
     .archive-info { flex: 1; min-width: 0; }
-    .archive-info .title { font-weight: 600; color: var(--navy); font-size: 16px; }
-    .archive-info .sub   { font-size: 13px; color: var(--muted); margin-top: 2px; }
-    .archive-arrow { color: var(--accent); font-size: 20px; flex-shrink: 0; }
+    .archive-info .title { font-weight: 700; color: var(--ink); font-size: 15.5px; line-height: 1.4; }
+    .archive-info .sub   { font-size: 12.5px; color: var(--muted); margin-top: 3px; }
+    .archive-arrow { color: var(--red); font-size: 18px; flex-shrink: 0; }
 
-    /* ---- Nút "Xem thêm" ---- */
     .show-more-wrap { text-align: center; margin-top: 16px; }
     .show-more-btn {
-      font-family: inherit; font-size: 15px; font-weight: 600; color: var(--accent);
-      background: var(--card); border: 1px solid var(--line); border-radius: 999px;
-      padding: 11px 28px; cursor: pointer; box-shadow: var(--shadow);
-      transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease;
+      font-family: inherit; font-size: 14.5px; font-weight: 700; color: var(--red);
+      background: var(--card); border: 1px solid var(--red); border-radius: 999px;
+      padding: 10px 26px; cursor: pointer; box-shadow: var(--shadow);
+      transition: all .18s ease;
     }
-    .show-more-btn:hover {
-      background: var(--accent); color: #fff; border-color: var(--accent);
-      transform: translateY(-2px); box-shadow: var(--shadow-lift);
-    }
+    .show-more-btn:hover { background: var(--red); color: #fff; }
 
-    /* ---- Trạng thái tải / lỗi ---- */
-    .state {
-      text-align: center; padding: 40px 20px; color: var(--muted);
+    /* ============================================================
+       CỘT TIỆN ÍCH (widget)
+       ============================================================ */
+    .widget {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 18px 18px;
+      margin-bottom: 20px;
     }
+    .widget-head {
+      display: flex; align-items: center; gap: 8px;
+      padding-bottom: 10px; margin-bottom: 12px;
+      border-bottom: 2px solid var(--ink);
+    }
+    .widget-head .kanji-chip { font-size: 12px; padding: 5px 7px; }
+    .widget-head h3 { font-size: 15px; font-weight: 800; color: var(--ink); }
+    .widget .note { font-size: 11.5px; color: var(--muted); margin-top: 10px; }
+    .w-state { font-size: 13px; color: var(--muted); text-align: center; padding: 10px 0; }
+
+    /* ---- Lịch Nhật ---- */
+    #cal-title { font-size: 14px; font-weight: 700; text-align: center; margin-bottom: 8px; }
+    #cal-title .jp { font-family: "Noto Serif JP", serif; color: var(--red); margin-left: 6px; font-size: 12.5px; }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      text-align: center; font-size: 12.5px; row-gap: 4px;
+    }
+    .cal-grid .dow { font-weight: 700; font-size: 11.5px; color: var(--muted); padding-bottom: 4px; }
+    .cal-grid .dow.sun, .cal-grid .d.sun { color: var(--red); }
+    .cal-grid .dow.sat, .cal-grid .d.sat { color: var(--blue); }
+    .cal-grid .d { padding: 3px 0; border-radius: 6px; position: relative; }
+    .cal-grid .d.holiday { color: var(--red); font-weight: 800; }
+    .cal-grid .d.holiday::after {
+      content: ""; position: absolute; top: 1px; right: 6px;
+      width: 4px; height: 4px; border-radius: 50%; background: var(--red);
+    }
+    .cal-grid .d.today {
+      background: var(--red); color: #fff !important; font-weight: 800;
+    }
+    .holiday-list { margin-top: 10px; font-size: 12.5px; color: var(--ink); }
+    .holiday-list li { list-style: none; padding: 2px 0; }
+    .holiday-list .hd { color: var(--red); font-weight: 700; }
+    /* Nút chuyển tháng */
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; gap: 6px; }
+    .cal-nav button {
+      background: transparent; border: 1px solid var(--line); color: var(--ink);
+      width: 28px; height: 28px; border-radius: 6px; cursor: pointer; font-size: 17px; line-height: 1;
+      flex-shrink: 0; transition: border-color .15s, color .15s;
+    }
+    .cal-nav button:hover { border-color: var(--red); color: var(--red); }
+    .cal-nav #cal-title { margin-bottom: 0; flex: 1; }
+
+    /* ---- Tỷ giá & thời tiết ---- */
+    .fx-row { display: flex; justify-content: space-between; align-items: baseline; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+    .fx-row:last-of-type { border-bottom: none; }
+    .fx-row .lbl { font-size: 13px; color: var(--muted); }
+    .fx-row .val { font-size: 16px; font-weight: 800; color: var(--ink); }
+    .fx-row .val small { font-size: 11.5px; color: var(--muted); font-weight: 500; }
+
+    .wx-main { display: flex; align-items: center; gap: 14px; }
+    .wx-icon { font-size: 40px; line-height: 1; }
+    .wx-temp { font-size: 28px; font-weight: 800; }
+    .wx-desc { font-size: 13px; color: var(--muted); }
+    .wx-minmax { margin-top: 8px; font-size: 12.5px; color: var(--muted); }
+    .wx-minmax .max { color: var(--red); font-weight: 700; }
+    .wx-minmax .min { color: var(--blue); font-weight: 700; }
+    /* Dự báo 7 ngày */
+    .wx-week { margin-top: 12px; border-top: 1px dashed var(--line); padding-top: 4px; }
+    .wx-day { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; font-size: 13px; border-bottom: 1px dashed var(--line); }
+    .wx-day:last-child { border-bottom: none; }
+    .wx-day .wd { color: var(--muted); flex: 1; }
+    .wx-day .wi { font-size: 18px; width: 30px; text-align: center; }
+    .wx-day .wt { font-weight: 700; min-width: 70px; text-align: right; }
+    .wx-day .wt .max { color: var(--red); }
+    .wx-day .wt .min { color: var(--blue); }
+
+    /* Máy tính khoản vay mua nhà */
+    .calc-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 8px 0; font-size: 12.5px; color: var(--muted); }
+    .calc-row span { flex: 1; }
+    .calc-row input {
+      width: 92px; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px;
+      background: var(--bg); color: var(--ink); font-family: inherit; font-size: 14px; text-align: right;
+    }
+    .calc-row input:focus { outline: none; border-color: var(--red); }
+    .calc-out { margin-top: 12px; border-top: 2px solid var(--ink); padding-top: 10px; }
+    .calc-out .lbl { font-size: 12px; color: var(--muted); }
+    .calc-out .big { font-size: 22px; font-weight: 800; color: var(--red); line-height: 1.2; }
+    .calc-out .sub { font-size: 12.5px; color: var(--ink); margin-top: 6px; line-height: 1.5; }
+
+    /* ---- Trạng thái tải ---- */
+    .state { text-align: center; padding: 40px 20px; color: var(--muted); }
     .spinner {
       width: 34px; height: 34px; margin: 0 auto 14px;
-      border: 3px solid var(--line); border-top-color: var(--accent);
+      border: 3px solid var(--line); border-top-color: var(--red);
       border-radius: 50%; animation: spin .8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* ============================================================
-       FOOTER
-       ============================================================ */
+    /* ---- Footer ---- */
     footer {
-      background: var(--navy);
-      color: rgba(255,255,255,.78);
-      padding: 36px 0;
-      text-align: center;
-      font-size: 14px;
+      background: var(--card);
+      border-top: 3px double var(--ink);
+      color: var(--muted);
+      padding: 28px 0;
+      text-align: center; font-size: 13.5px;
     }
-    footer strong { color: #fff; }
-    footer .sys {
-      margin-top: 8px; font-size: 12.5px; color: rgba(255,255,255,.5);
-    }
+    footer strong { color: var(--ink); }
+    footer .sys { margin-top: 6px; font-size: 12px; }
 
-    /* ---- Nút "Lên đầu trang" ---- */
+    /* ---- Nút lên đầu trang ---- */
     #to-top {
       position: fixed; right: 18px; bottom: 18px; z-index: 50;
       width: 46px; height: 46px; border-radius: 50%;
-      background: var(--accent); color: #fff; border: none;
+      background: var(--red); color: #fff; border: none;
       font-size: 22px; line-height: 1; cursor: pointer;
       box-shadow: var(--shadow-lift);
       opacity: 0; visibility: hidden; transform: translateY(10px);
       transition: opacity .25s ease, transform .25s ease, visibility .25s;
     }
     #to-top.show { opacity: 1; visibility: visible; transform: translateY(0); }
-    #to-top:hover { background: var(--navy); }
+    #to-top:hover { background: var(--red-deep); }
 
-    /* ============================================================
-       RESPONSIVE (Điện thoại)
-       ============================================================ */
+    /* ---- Mobile ---- */
     @media (max-width: 600px) {
-      header { padding: 40px 0 46px; }
-      #today-news { padding: 24px 16px; }
+      .masthead { padding: 20px 0 16px; }
+      .seal { width: 48px; height: 48px; font-size: 20px; }
+      #today-news { padding: 22px 15px; }
       #today-news th, #today-news td { padding: 8px 10px; font-size: 14px; }
-      #today-news h3 { font-size: 16px; }
-      .section-head h2 { font-size: 20px; }
-      .archive-card { gap: 14px; padding: 14px; }
-      .archive-date-box { width: 52px; height: 52px; }
-      .archive-date-box .day { font-size: 19px; }
-      .archive-info .title { font-size: 15px; }
+      .section-head h2 { font-size: 19px; }
+      .archive-card { gap: 12px; padding: 12px 14px; }
+      .archive-date-box { width: 50px; height: 50px; }
+      .archive-date-box .day { font-size: 18px; }
+      .archive-info .title { font-size: 14.5px; }
       .archive-arrow { display: none; }
       #to-top { right: 14px; bottom: 14px; }
-    }
-
-    /* ============================================================
-       DARK MODE (tự động theo cài đặt điện thoại/hệ thống)
-       ============================================================ */
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --ink:   #e6edf3;
-        --muted: #9aa7b4;
-        --line:  #2a3746;
-        --bg:    #0d1520;
-        --card:  #16212e;
-        --shadow:      0 6px 24px rgba(0,0,0,0.45);
-        --shadow-lift: 0 14px 36px rgba(0,0,0,0.6);
-      }
-      body {
-        background:
-          radial-gradient(1200px 600px at 50% -200px, #14202e 0%, transparent 60%),
-          var(--bg);
-      }
-      .section-head h2, #today-news h2, #today-news h3, .archive-info .title { color: #cfe0ee; }
-      .section-head .badge { background: #1e3a52; color: #9cc4e4; }
-      #today-news th { background: #1e2b3a; }
-      .show-more-btn { color: #9cc4e4; }
-      #today-badge, .badge { color: #9cc4e4; }
+      .top-strip .jdate span.era { display: none; }
     }
   </style>
 </head>
 
 <body>
-  <!-- ====================== HEADER ====================== -->
-  <header>
+  <!-- Dải ngày tháng + nút giao diện -->
+  <div class="top-strip">
     <div class="wrap">
-      <span class="brand-tag"><span class="dot"></span> Cập nhật mỗi ngày</span>
-      <h1>Trang Cập Nhật Tin Tức Mỗi Ngày</h1>
-      <p>
-        Thông tin và dữ liệu thị trường bất động sản, kinh tế Nhật Bản —
-        chọn lọc, biên tập kỹ lưỡng, cập nhật mỗi ngày, ngắn gọn và đáng tin cậy.
-      </p>
+      <div class="jdate" id="jdate">&nbsp;</div>
+      <button id="theme-toggle" aria-label="Đổi giao diện sáng/tối">🌙 Tối</button>
+    </div>
+  </div>
+
+  <!-- Măng-sét -->
+  <header class="masthead">
+    <div class="wrap">
+      <div class="seal" aria-hidden="true">福興</div>
+      <div class="mast-text">
+        <h1>Phúc <span class="accent">Hưng</span></h1>
+        <div class="tagline">
+          <span class="jp">日本不動産・経済情報</span>
+          Thông tin thị trường bất động sản &amp; kinh tế Nhật Bản — cập nhật mỗi ngày
+        </div>
+      </div>
     </div>
   </header>
 
-  <!-- ====================== NỘI DUNG ====================== -->
-  <main class="wrap">
+  <!-- Nội dung -->
+  <main class="wrap layout">
+    <div class="main-col">
+      <!-- TIN HÔM NAY -->
+      <section>
+        <div class="section-head">
+          <div class="row">
+            <span class="kanji-chip">今日</span>
+            <h2>Tin Hôm Nay</h2>
+            <span class="badge" id="today-badge">Mới nhất</span>
+          </div>
+          <div class="rule"></div>
+        </div>
+        <div id="today-news">
+          <div class="state">
+            <div class="spinner"></div>
+            Đang nạp bản tin mới nhất…
+          </div>
+        </div>
+      </section>
 
-    <!-- TIN HÔM NAY -->
-    <section>
-      <div class="section-head">
-        <h2>Tin Hôm Nay</h2>
-        <span class="badge" id="today-badge">Mới nhất</span>
-        <span class="line"></span>
+      <!-- KHO LƯU TRỮ -->
+      <section>
+        <div class="section-head">
+          <div class="row">
+            <span class="kanji-chip">既刊</span>
+            <h2>Bản Tin Các Ngày Trước</h2>
+          </div>
+          <div class="rule"></div>
+        </div>
+        <table id="archive-links">
+          <tbody id="archive-body">
+            <tr><td><div class="state">Đang tải danh sách lưu trữ…</div></td></tr>
+          </tbody>
+        </table>
+        <div id="archive-more" class="show-more-wrap"></div>
+      </section>
+    </div>
+
+    <!-- CỘT TIỆN ÍCH -->
+    <aside class="side-col">
+      <!-- Lịch Nhật -->
+      <div class="widget">
+        <div class="widget-head">
+          <span class="kanji-chip">暦</span>
+          <h3>Lịch Nhật Bản</h3>
+        </div>
+        <div id="cal-body"><div class="w-state">Đang tải lịch…</div></div>
       </div>
 
-      <div id="today-news">
-        <div class="state">
-          <div class="spinner"></div>
-          Đang nạp bản tin mới nhất…
+      <!-- Tỷ giá -->
+      <div class="widget">
+        <div class="widget-head">
+          <span class="kanji-chip">為替</span>
+          <h3>Tỷ giá Yên</h3>
+        </div>
+        <div id="fx-body"><div class="w-state">Đang tải tỷ giá…</div></div>
+      </div>
+
+      <!-- Thời tiết -->
+      <div class="widget">
+        <div class="widget-head">
+          <span class="kanji-chip">天気</span>
+          <h3>Thời tiết Tokyo</h3>
+        </div>
+        <div id="wx-body"><div class="w-state">Đang tải thời tiết…</div></div>
+      </div>
+
+      <!-- Máy tính khoản vay mua nhà -->
+      <div class="widget">
+        <div class="widget-head">
+          <span class="kanji-chip">試算</span>
+          <h3>Tính khoản vay mua nhà</h3>
+        </div>
+        <div class="calc">
+          <label class="calc-row"><span>Giá nhà (万円)</span><input id="c-price" type="number" min="0" step="100" value="4000"></label>
+          <label class="calc-row"><span>Trả trước (万円)</span><input id="c-down" type="number" min="0" step="100" value="0"></label>
+          <label class="calc-row"><span>Lãi suất (%/năm)</span><input id="c-rate" type="number" min="0" step="0.05" value="1.5"></label>
+          <label class="calc-row"><span>Số năm vay</span><input id="c-years" type="number" min="1" max="50" step="1" value="35"></label>
+          <label class="calc-row"><span>Phí QL + bảo hiểm (万円/th)</span><input id="c-fee" type="number" min="0" step="0.1" value="2"></label>
+          <div class="calc-out" id="calc-out"></div>
+          <div class="note">Ước tính theo phương pháp trả góp đều (元利均等). Chỉ mang tính tham khảo.</div>
         </div>
       </div>
-    </section>
-
-    <!-- KHO LƯU TRỮ -->
-    <section>
-      <div class="section-head">
-        <h2>Bản Tin Các Ngày Trước</h2>
-        <span class="line"></span>
-      </div>
-
-      <table id="archive-links">
-        <tbody id="archive-body">
-          <tr>
-            <td>
-              <div class="state">Đang tải danh sách lưu trữ…</div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div id="archive-more" class="show-more-wrap"></div>
-    </section>
+    </aside>
   </main>
 
-  <!-- ====================== FOOTER ====================== -->
+  <!-- Footer -->
   <footer>
     <div class="wrap">
       <div>© <span id="year"></span> — Bản quyền thuộc <strong>Phúc Hưng</strong>.</div>
-      <div class="sys">
-        Chuyên trang thông tin thị trường bất động sản &amp; kinh tế Nhật Bản · Cập nhật hằng ngày
-      </div>
+      <div class="sys">Chuyên trang thông tin thị trường bất động sản &amp; kinh tế Nhật Bản · Cập nhật hằng ngày</div>
     </div>
   </footer>
 
   <button id="to-top" aria-label="Lên đầu trang" title="Lên đầu trang">↑</button>
 
-  <!-- ============================================================
-       LOGIC JAVASCRIPT — "BỘ MÁY" RENDER ĐỘNG
-       Đọc database.json -> nạp tin mới nhất + render danh sách cũ
-       ============================================================ -->
   <script>
-    // Cập nhật năm ở footer
+    /* ============================================================
+       GIAO DIỆN SÁNG / TỐI — tự động theo máy + nút bật tắt
+       ============================================================ */
+    (function () {
+      const root = document.documentElement;
+      const btn = document.getElementById("theme-toggle");
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") root.setAttribute("data-theme", saved);
+
+      function isDark() {
+        const attr = root.getAttribute("data-theme");
+        if (attr) return attr === "dark";
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
+      function refresh() {
+        btn.textContent = isDark() ? "☀️ Sáng" : "🌙 Tối";
+      }
+      btn.addEventListener("click", () => {
+        const next = isDark() ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        refresh();
+      });
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", refresh);
+      refresh();
+    })();
+
     document.getElementById("year").textContent = new Date().getFullYear();
 
+    /* ============================================================
+       TIỆN ÍCH CHUNG
+       ============================================================ */
     const MONTHS_VI = ["Th1","Th2","Th3","Th4","Th5","Th6","Th7","Th8","Th9","Th10","Th11","Th12"];
     const WEEKDAYS_VI = ["Chủ Nhật","Thứ Hai","Thứ Ba","Thứ Tư","Thứ Năm","Thứ Sáu","Thứ Bảy"];
 
-    /** Chuyển "YYYY-MM-DD" -> "DD/MM/YYYY" */
+    /** Ngày giờ hiện tại theo múi giờ Nhật (JST) */
+    function nowJST() {
+      return new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Tokyo" }));
+    }
     function toDisplayDate(iso) {
       const [y, m, d] = iso.split("-");
       return `${d}/${m}/${y}`;
     }
-
-    /** Lấy đối tượng Date an toàn từ chuỗi ISO (tránh lệch múi giờ) */
     function parseISO(iso) {
       const [y, m, d] = iso.split("-").map(Number);
       return new Date(y, m - 1, d);
     }
-
-    /** Hiển thị thông báo lỗi/empty trong một container */
     function showState(el, message) {
       el.innerHTML = `<div class="state">${message}</div>`;
     }
 
-    /** Nạp nội dung file archive của ngày mới nhất vào vùng "Tin hôm nay" */
+    /* Dòng ngày kiểu nhật báo: Thứ, ngày + niên hiệu Lệnh Hòa */
+    (function () {
+      const d = nowJST();
+      const reiwa = d.getFullYear() - 2018;
+      const dd = String(d.getDate()).padStart(2, "0");
+      const mm = String(d.getMonth() + 1).padStart(2, "0");
+      document.getElementById("jdate").innerHTML =
+        `<b>${WEEKDAYS_VI[d.getDay()]}</b>, ${dd}/${mm}/${d.getFullYear()} <span class="era">· 令和${reiwa}年 (JST)</span>`;
+    })();
+
+    /* ============================================================
+       NẠP TIN — đọc database.json (giữ nguyên logic cũ)
+       ============================================================ */
+    function normalizeEntry(entry) {
+      if (typeof entry === "string") return { date: entry, title: "" };
+      return { date: entry.date, title: entry.title || "" };
+    }
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"]/g, (c) =>
+        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+    }
+
     async function loadTodayNews(iso) {
       const container = document.getElementById("today-news");
       try {
         const res = await fetch(`archive/${iso}.html`, { cache: "no-store" });
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        const html = await res.text();
-        container.innerHTML = html;
+        container.innerHTML = await res.text();
         document.getElementById("today-badge").textContent = toDisplayDate(iso);
       } catch (err) {
         showState(container,
@@ -402,66 +603,51 @@
       }
     }
 
-    /** Chuẩn hóa 1 phần tử news_list: hỗ trợ cả "YYYY-MM-DD" lẫn {date, title} */
-    function normalizeEntry(entry) {
-      if (typeof entry === "string") return { date: entry, title: "" };
-      return { date: entry.date, title: entry.title || "" };
-    }
-
-    /** Escape ký tự HTML để hiển thị tiêu đề an toàn */
-    function escapeHtml(s) {
-      return String(s).replace(/[&<>"]/g, (c) =>
-        ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    }
-
-    // Trạng thái phân trang danh sách lưu trữ
     let archiveItems = [];
     let archiveShown = 0;
     const ARCHIVE_BATCH = 7;
 
-    /** Tạo HTML cho 1 thẻ bản tin cũ */
     function archiveCardHTML(item) {
       const iso = item.date;
       const dt = parseISO(iso);
       const day = String(dt.getDate()).padStart(2, "0");
       const month = MONTHS_VI[dt.getMonth()];
       const weekday = WEEKDAYS_VI[dt.getDay()];
-      const title = item.title
-        ? escapeHtml(item.title)
-        : `Bản tin ngày ${toDisplayDate(iso)}`;
+      const title = item.title ? escapeHtml(item.title) : `Bản tin ngày ${toDisplayDate(iso)}`;
       return `
-          <tr>
-            <td>
-              <a class="archive-card" href="article.html?date=${iso}" target="_blank" rel="noopener">
-                <div class="archive-date-box">
-                  <span class="day">${day}</span>
-                  <span class="month">${month}</span>
-                </div>
-                <div class="archive-info">
-                  <div class="title">${title}</div>
-                  <div class="sub">${toDisplayDate(iso)} · ${weekday}</div>
-                </div>
-                <span class="archive-arrow">→</span>
-              </a>
-            </td>
-          </tr>`;
+        <tr>
+          <td>
+            <a class="archive-card" href="article.html?date=${iso}" target="_blank" rel="noopener">
+              <div class="archive-date-box">
+                <span class="day">${day}</span>
+                <span class="month">${month}</span>
+              </div>
+              <div class="archive-info">
+                <div class="title">${title}</div>
+                <div class="sub">${toDisplayDate(iso)} · ${weekday}</div>
+              </div>
+              <span class="archive-arrow">→</span>
+            </a>
+          </td>
+        </tr>`;
     }
 
-    /** Hiện thêm 1 đợt bài (mỗi lần ARCHIVE_BATCH bài) + cập nhật nút */
     function showMoreArchive() {
       const tbody = document.getElementById("archive-body");
       const moreBox = document.getElementById("archive-more");
       const next = archiveItems.slice(archiveShown, archiveShown + ARCHIVE_BATCH);
       tbody.insertAdjacentHTML("beforeend", next.map(archiveCardHTML).join(""));
       archiveShown += next.length;
-
       const remaining = archiveItems.length - archiveShown;
       moreBox.innerHTML = remaining > 0
         ? `<button type="button" class="show-more-btn" onclick="showMoreArchive()">Xem thêm ${remaining} bài →</button>`
         : "";
     }
 
-    /** Render danh sách bài cũ — hiện ARCHIVE_BATCH bài đầu, còn lại ẩn sau nút "Xem thêm" */
+    function showStateRow(tbody, message) {
+      tbody.innerHTML = `<tr><td><div class="state">${message}</div></td></tr>`;
+    }
+
     function renderArchive(items) {
       const tbody = document.getElementById("archive-body");
       const moreBox = document.getElementById("archive-more");
@@ -469,7 +655,6 @@
       archiveShown = 0;
       tbody.innerHTML = "";
       if (moreBox) moreBox.innerHTML = "";
-
       if (!items.length) {
         showStateRow(tbody, "Chưa có bản tin nào trong kho lưu trữ.");
         return;
@@ -477,11 +662,6 @@
       showMoreArchive();
     }
 
-    function showStateRow(tbody, message) {
-      tbody.innerHTML = `<tr><td><div class="state">${message}</div></td></tr>`;
-    }
-
-    /** Điểm khởi động chính */
     async function init() {
       let data;
       try {
@@ -489,45 +669,243 @@
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
         data = await res.json();
       } catch (err) {
-        showState(document.getElementById("today-news"),
-          "⚠️ Không đọc được cơ sở dữ liệu (database.json).");
-        showStateRow(document.getElementById("archive-body"),
-          "Không tải được danh sách lưu trữ.");
+        showState(document.getElementById("today-news"), "⚠️ Không đọc được cơ sở dữ liệu (database.json).");
+        showStateRow(document.getElementById("archive-body"), "Không tải được danh sách lưu trữ.");
         console.error("Lỗi đọc database.json:", err);
         return;
       }
-
-      // Mảng news_list đã được sắp xếp mới -> cũ (mỗi phần tử: chuỗi ngày hoặc {date, title})
       const rawList = Array.isArray(data.news_list) ? data.news_list : [];
       const list = rawList.map(normalizeEntry);
-
       if (!list.length) {
-        showState(document.getElementById("today-news"),
-          "Chưa có bản tin nào. Hệ thống sẽ tự cập nhật vào lần chạy kế tiếp.");
-        showStateRow(document.getElementById("archive-body"),
-          "Kho lưu trữ đang trống.");
+        showState(document.getElementById("today-news"), "Chưa có bản tin nào. Hệ thống sẽ cập nhật vào lần tới.");
+        showStateRow(document.getElementById("archive-body"), "Kho lưu trữ đang trống.");
         return;
       }
-
-      // Phần tử đầu tiên = ngày mới nhất -> nạp vào "Tin hôm nay"
-      const latest = list[0];
-      // Các ngày còn lại -> danh sách lưu trữ
-      const older = list.slice(1);
-
-      loadTodayNews(latest.date);
-      renderArchive(older);
+      loadTodayNews(list[0].date);
+      renderArchive(list.slice(1));
     }
-
     document.addEventListener("DOMContentLoaded", init);
 
-    // Nút "Lên đầu trang" — hiện khi cuộn xuống
-    const toTop = document.getElementById("to-top");
-    if (toTop) {
+    /* ============================================================
+       WIDGET 1: LỊCH NHẬT — tô đỏ Chủ nhật & ngày lễ Nhật
+       Nguồn ngày lễ: holidays-jp.github.io (miễn phí)
+       ============================================================ */
+    let calHolidays = null;   // cache ngày lễ (dùng chung mọi tháng)
+    let calView = null;       // Date trỏ tới tháng đang xem
+
+    async function ensureHolidays() {
+      if (calHolidays) return calHolidays;
+      try {
+        const res = await fetch("https://holidays-jp.github.io/api/v1/date.json", { cache: "force-cache" });
+        calHolidays = res.ok ? await res.json() : {};
+      } catch (e) { console.warn("Không tải được ngày lễ Nhật:", e); calHolidays = {}; }
+      return calHolidays;
+    }
+
+    function changeMonth(delta) {
+      if (!calView) return;
+      calView.setMonth(calView.getMonth() + delta);
+      renderCalendar();
+    }
+
+    function renderCalendar() {
+      const box = document.getElementById("cal-body");
+      const holidays = calHolidays || {};
+      const y = calView.getFullYear(), m = calView.getMonth();
+      const now = nowJST();
+      const isCurMonth = (y === now.getFullYear() && m === now.getMonth());
+      const today = now.getDate();
+      const daysInMonth = new Date(y, m + 1, 0).getDate();
+      const firstDow = new Date(y, m, 1).getDay();
+      const dows = ["日","月","火","水","木","金","土"];
+
+      let html = `<div class="cal-nav">
+        <button type="button" onclick="changeMonth(-1)" aria-label="Tháng trước">‹</button>
+        <div id="cal-title">Tháng ${m + 1}/${y}<span class="jp">令和${y - 2018}年${m + 1}月</span></div>
+        <button type="button" onclick="changeMonth(1)" aria-label="Tháng sau">›</button>
+      </div>`;
+      html += `<div class="cal-grid">`;
+      dows.forEach((w, i) => {
+        const cls = i === 0 ? "dow sun" : (i === 6 ? "dow sat" : "dow");
+        html += `<div class="${cls}">${w}</div>`;
+      });
+      for (let i = 0; i < firstDow; i++) html += `<div></div>`;
+
+      const monthHolidays = [];
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dow = new Date(y, m, d).getDay();
+        const iso = `${y}-${String(m + 1).padStart(2, "0")}-${String(d).padStart(2, "0")}`;
+        const hName = holidays[iso];
+        if (hName) monthHolidays.push({ d, name: hName });
+        let cls = "d";
+        if (dow === 0) cls += " sun";
+        if (dow === 6) cls += " sat";
+        if (hName) cls += " holiday";
+        if (isCurMonth && d === today) cls += " today";
+        const title = hName ? ` title="${escapeHtml(hName)}"` : "";
+        html += `<div class="${cls}"${title}>${d}</div>`;
+      }
+      html += `</div>`;
+
+      if (monthHolidays.length) {
+        html += `<ul class="holiday-list">` + monthHolidays.map(h =>
+          `<li><span class="hd">${String(h.d).padStart(2, "0")}/${String(m + 1).padStart(2, "0")}</span> — ${escapeHtml(h.name)}</li>`
+        ).join("") + `</ul>`;
+      } else {
+        html += `<div class="note">Tháng này không có ngày lễ.</div>`;
+      }
+      box.innerHTML = html;
+    }
+
+    async function loadCalendar() {
+      calView = nowJST();
+      calView.setDate(1);
+      await ensureHolidays();
+      renderCalendar();
+    }
+
+    /* ============================================================
+       WIDGET 2: TỶ GIÁ YÊN — JPY→VND & JPY→USD
+       Nguồn: open.er-api.com (miễn phí, không cần key)
+       ============================================================ */
+    async function loadFx() {
+      const box = document.getElementById("fx-body");
+      try {
+        const res = await fetch("https://open.er-api.com/v6/latest/JPY");
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        const vnd = data.rates && data.rates.VND;
+        const usd = data.rates && data.rates.USD;
+        if (!vnd) throw new Error("Thiếu tỷ giá VND");
+        window.__jpyVnd = vnd;                        // lưu để máy tính quy đổi VND
+        if (typeof calcMortgage === "function") calcMortgage();
+        const fmt = (n, digits = 0) => n.toLocaleString("vi-VN", { maximumFractionDigits: digits });
+        box.innerHTML = `
+          <div class="fx-row"><span class="lbl">100円 (yên)</span>
+            <span class="val">${fmt(vnd * 100)} <small>VND</small></span></div>
+          <div class="fx-row"><span class="lbl">1万円 (10.000 yên)</span>
+            <span class="val">${fmt(vnd * 10000)} <small>VND</small></span></div>
+          <div class="fx-row"><span class="lbl">1 USD</span>
+            <span class="val">${(1 / usd).toLocaleString("vi-VN", { maximumFractionDigits: 1 })} <small>円</small></span></div>
+          <div class="note">Cập nhật: ${new Date(data.time_last_update_utc).toLocaleDateString("vi-VN")} · Nguồn: open.er-api.com</div>`;
+      } catch (e) {
+        box.innerHTML = `<div class="w-state">⚠️ Không tải được tỷ giá.</div>`;
+        console.warn("Lỗi tỷ giá:", e);
+      }
+    }
+
+    /* ============================================================
+       WIDGET 3: THỜI TIẾT TOKYO
+       Nguồn: open-meteo.com (miễn phí, không cần key)
+       ============================================================ */
+    function wxInfo(code) {
+      if (code === 0) return ["☀️", "Quang đãng"];
+      if (code <= 2) return ["🌤️", "Ít mây"];
+      if (code === 3) return ["☁️", "Nhiều mây"];
+      if (code === 45 || code === 48) return ["🌫️", "Sương mù"];
+      if (code >= 51 && code <= 57) return ["🌦️", "Mưa phùn"];
+      if (code >= 61 && code <= 67) return ["🌧️", "Mưa"];
+      if (code >= 71 && code <= 77) return ["🌨️", "Tuyết"];
+      if (code >= 80 && code <= 82) return ["🌧️", "Mưa rào"];
+      if (code >= 95) return ["⛈️", "Dông"];
+      return ["🌡️", "—"];
+    }
+    async function loadWeather() {
+      const box = document.getElementById("wx-body");
+      try {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=35.6895&longitude=139.6917"
+          + "&current=temperature_2m,relative_humidity_2m,weather_code"
+          + "&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Asia%2FTokyo&forecast_days=7";
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const d = await res.json();
+        const [icon, desc] = wxInfo(d.current.weather_code);
+        const dows = ["CN","T2","T3","T4","T5","T6","T7"];
+        let week = "";
+        for (let i = 0; i < d.daily.time.length; i++) {
+          const dt = parseISO(d.daily.time[i]);
+          const [ic] = wxInfo(d.daily.weather_code[i]);
+          const label = i === 0 ? "Hôm nay" : `${dows[dt.getDay()]} ${dt.getDate()}/${dt.getMonth() + 1}`;
+          week += `<div class="wx-day">
+            <span class="wd">${label}</span>
+            <span class="wi">${ic}</span>
+            <span class="wt"><span class="max">${Math.round(d.daily.temperature_2m_max[i])}°</span> / <span class="min">${Math.round(d.daily.temperature_2m_min[i])}°</span></span>
+          </div>`;
+        }
+        box.innerHTML = `
+          <div class="wx-main">
+            <div class="wx-icon">${icon}</div>
+            <div>
+              <div class="wx-temp">${Math.round(d.current.temperature_2m)}°C</div>
+              <div class="wx-desc">${desc} · Độ ẩm ${d.current.relative_humidity_2m}%</div>
+            </div>
+          </div>
+          <div class="wx-week">${week}</div>
+          <div class="note">Dự báo 7 ngày · Nguồn: open-meteo.com (JST)</div>`;
+      } catch (e) {
+        box.innerHTML = `<div class="w-state">⚠️ Không tải được thời tiết.</div>`;
+        console.warn("Lỗi thời tiết:", e);
+      }
+    }
+
+    /* ============================================================
+       WIDGET 4: MÁY TÍNH KHOẢN VAY MUA NHÀ (元利均等 — trả góp đều)
+       ============================================================ */
+    function fmtYen(n) {  // n tính bằng 円
+      if (n >= 100000000) return (n / 100000000).toLocaleString("vi-VN", { maximumFractionDigits: 2 }) + "億円";
+      if (n >= 10000)     return (n / 10000).toLocaleString("vi-VN", { maximumFractionDigits: 1 }) + "万円";
+      return Math.round(n).toLocaleString("vi-VN") + "円";
+    }
+    function calcMortgage() {
+      const out = document.getElementById("calc-out");
+      if (!out) return;
+      const MAN = 10000;
+      const num = (id) => parseFloat(document.getElementById(id).value) || 0;
+      const price = num("c-price") * MAN;
+      const down  = num("c-down") * MAN;
+      const rate  = num("c-rate") / 100;
+      const years = parseInt(document.getElementById("c-years").value) || 0;
+      const fee   = num("c-fee") * MAN;
+
+      const principal = Math.max(0, price - down);
+      const n = years * 12;
+      let monthly = 0;
+      if (n > 0) {
+        const r = rate / 12;
+        monthly = r === 0 ? principal / n : principal * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1);
+      }
+      const total = monthly + fee;
+      const vnd = window.__jpyVnd;
+      out.innerHTML = `
+        <div class="lbl">Trả hàng tháng (gồm phí)</div>
+        <div class="big">${fmtYen(total)}</div>
+        ${vnd ? `<div class="sub">≈ <b>${(total * vnd).toLocaleString("vi-VN", { maximumFractionDigits: 0 })} VND</b>/tháng</div>` : ""}
+        <div class="sub">Tiền vay <b>${fmtYen(principal)}</b> · Gốc+lãi <b>${fmtYen(monthly)}</b>/th · Phí <b>${fmtYen(fee)}</b>/th</div>
+        <div class="sub">Tổng trả cả kỳ (${years} năm): <b>${fmtYen(total * n)}</b></div>`;
+    }
+    function initCalc() {
+      ["c-price", "c-down", "c-rate", "c-years", "c-fee"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener("input", calcMortgage);
+      });
+      calcMortgage();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCalendar();
+      loadFx();
+      loadWeather();
+      initCalc();
+    });
+
+    /* ---- Nút lên đầu trang ---- */
+    (function () {
+      const toTop = document.getElementById("to-top");
       toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
       window.addEventListener("scroll", () => {
         toTop.classList.toggle("show", window.scrollY > 400);
       }, { passive: true });
-    }
+    })();
   </script>
 </body>
 </html>
