@@ -1,8 +1,12 @@
 {
   "site": "Trang Cập Nhật Tin Tức Mỗi Ngày",
   "operator": "Phuc Hung Agent",
-  "last_updated": "2026-07-15",
+  "last_updated": "2026-07-22",
   "news_list": [
+    {
+      "date": "2026-07-22",
+      "title": "BOJ tăng lãi suất đỉnh 31 năm: Gánh nặng vay mua nhà biến động tăng lên 28,3% thu nhập"
+    },
     {
       "date": "2026-07-15",
       "title": "CPI toàn quốc Nhật Bản T5/2026: lạm phát 1,5%, giá năng lượng hạ nhiệt nhờ bỏ thuế xăng tạm thời"
