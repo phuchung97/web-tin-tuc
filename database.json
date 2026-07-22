@@ -1,8 +1,12 @@
 {
   "site": "Trang Cập Nhật Tin Tức Mỗi Ngày",
   "operator": "Phuc Hung Agent",
-  "last_updated": "2026-07-13",
+  "last_updated": "2026-07-15",
   "news_list": [
+    {
+      "date": "2026-07-15",
+      "title": "CPI toàn quốc Nhật Bản T5/2026: lạm phát 1,5%, giá năng lượng hạ nhiệt nhờ bỏ thuế xăng tạm thời"
+    },
     {
       "date": "2026-07-13",
       "title": "Chung cư cũ Tokyo lập đỉnh mới: giá bình quân 70㎡ đạt 11.094万円 (+2,6%), tăng liên tiếp 24 tháng"
